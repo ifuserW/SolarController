@@ -24,7 +24,7 @@ public:
     WebSetup();
     void handleRoot();
     void handleSSE();
-    void handleClient() { this->server->handleClient(); }
+    void handleClient();
 };
 
 #endif // WEBSETUP_H

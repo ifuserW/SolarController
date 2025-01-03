@@ -29,20 +29,12 @@ void WebSetup::handleSSE() {
   // Setze den Header für SSE
   server->setContentLength(CONTENT_LENGTH_UNKNOWN);
   server->send(200, "text/event-stream");
-  
-  while (true) {
-    // Hole die aktuelle Signalstärke (RSSI)
-    int rssi = WiFi.RSSI();
-    
-    // Sende die Daten als SSE-Nachricht
-    server->sendContent("data: " + String(rssi) + "\n\n");
-    delay(1000);  // Aktualisiere alle 1 Sekunde
 
-    // Verlasse die Schleife, wenn die Verbindung verloren geht
-    if (!server->client().connected()) {
-      break;
-    }
-  }
+  // Hole die aktuelle Signalstärke (RSSI)
+  int rssi = WiFi.RSSI();
+
+  // Sende die Daten als SSE-Nachricht
+  server->sendContent("data: " + String(rssi) + "\n\n");
 }
 
 // Funktion, die die Hauptseite bereitstellt
@@ -61,5 +53,15 @@ void WebSetup::handleRoot() {
   server->send(200, "text/html", html);
 }
 
+void WebSetup::handleClient() {
+  static unsigned long lastSSETime = 0;
+  unsigned long currentTime = millis();
+
+  // Sende SSE-Nachrichten alle 1000 ms
+  if (currentTime - lastSSETime >= 1000) {
+    this->server->handleClient();
+    lastSSETime = currentTime;
+  }
+}
 
 
