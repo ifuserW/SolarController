@@ -17,14 +17,12 @@
 
 class LCDview : public View {
 private:
-    String _output;
     LiquidCrystal_I2C lcd;
-    void update();
 
 public:
     // lcd_addr: I2C address of the LCD, lcd_cols: number of columns, lcd_rows: number of rows
     LCDview(uint8_t lcd_addr, uint8_t lcd_cols, uint8_t lcd_rows);
-    void setTemp1(const String& temp) override;
+    void setTemp1(const String &temp) override;
     void setTemp2(const String& temp) override;
     void setPumpMode(const String& mode) override;
     void clear();
