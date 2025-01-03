@@ -40,8 +40,10 @@ void WebSetup::handleSSE() {
 // Funktion, die die Hauptseite bereitstellt
 void WebSetup::handleRoot() {
   String html = "<html><head><title>WLAN Empfangsanzeige</title></head><body>";
-  html += "<h1>WLAN Empfangsanzeige</h1>";
-  html += "<p>Signalstärke (RSSI): <span id='rssi'>Lade...</span> dBm</p>";
+  html += "<h1>Thermische Solaranlage - Steuerung</h1>";
+  html += "<p>Temp1 (°C): <span id='rssi'>Lade...</span> °C</p>";
+  html += "<p>Temp2 (°C): <span id='rssi'>Lade...</span> °C</p>";
+  html += "<p>Pumpe (Zustand): <span id='rssi'>Lade...</span></p>";
   html += "<script>";
   html += "const eventSource = new EventSource('/events');";
   html += "eventSource.onmessage = function(event) {";
