@@ -20,11 +20,14 @@ private:
     const char* password = "32287405134272443760";
     const int webport;
     WebServer* server;
+    String temp1;
+    String temp2;
+    String pumpMode;
 public:
     WebSetup();
     void handleRoot();
     void handleSSE();
-    void handleClient();
+    void handleClient(String temp1, String temp2, String pumpMode);
 };
 
 #endif // WEBSETUP_H

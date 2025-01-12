@@ -30,20 +30,20 @@ void WebSetup::handleSSE() {
   server->setContentLength(CONTENT_LENGTH_UNKNOWN);
   server->send(200, "text/event-stream");
 
-  // Hole die aktuelle Signalstärke (RSSI)
-  int rssi = WiFi.RSSI();
+  // Schreibe Daten in json-Format
+  String jsonData = "{\"temp1\": " + temp1 + ", \"temp2\": \"" + temp2 + ", \"pumpMode\": \"" + pumpMode + "\"}";
 
   // Sende die Daten als SSE-Nachricht
-  server->sendContent("data: " + String(rssi) + "\n\n");
+  server->sendContent("data: " + jsonData + "\n\n");
 }
 
 // Funktion, die die Hauptseite bereitstellt
 void WebSetup::handleRoot() {
   String html = "<html><head><title>WLAN Empfangsanzeige</title></head><body>";
   html += "<h1>Thermische Solaranlage - Steuerung</h1>";
-  html += "<p>Temp1 (°C): <span id='rssi'>Lade...</span> °C</p>";
-  html += "<p>Temp2 (°C): <span id='rssi'>Lade...</span> °C</p>";
-  html += "<p>Pumpe (Zustand): <span id='rssi'>Lade...</span></p>";
+  html += "<p>Temp1 (°C): <span id='temp1'>Lade...</span> °C</p>";
+  html += "<p>Temp2 (°C): <span id='temp2'>Lade...</span> °C</p>";
+  html += "<p>Pumpe (Zustand): <span id='pumpMode'>Lade...</span></p>";
   html += "<script>";
   html += "const eventSource = new EventSource('/events');";
   html += "eventSource.onmessage = function(event) {";
@@ -55,7 +55,12 @@ void WebSetup::handleRoot() {
   server->send(200, "text/html", html);
 }
 
-void WebSetup::handleClient() {
+void WebSetup::handleClient(String temp1, String temp2, String pumpMode) {
+  // Aktualisiere die Werte
+  this->temp1 = temp1;
+  this->temp2 = temp2;
+  this->pumpMode = pumpMode;
+
   static unsigned long lastSSETime = 0;
   unsigned long currentTime = millis();
 
