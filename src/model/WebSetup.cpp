@@ -31,7 +31,7 @@ void WebSetup::handleSSE() {
   server->send(200, "text/event-stream");
 
   // Schreibe Daten in json-Format
-  String jsonData = "{\"temp1\": " + temp1 + ", \"temp2\": \"" + temp2 + ", \"pumpMode\": \"" + pumpMode + "\"}";
+  String jsonData = "{\"temp1\": " + String(temp1) + ", \"temp2\": \"" + String(temp2) + "\", \"pumpMode\": \"" + pumpMode + "\"}";
 
   // Sende die Daten als SSE-Nachricht
   server->sendContent("data: " + jsonData + "\n\n");
@@ -41,13 +41,16 @@ void WebSetup::handleSSE() {
 void WebSetup::handleRoot() {
   String html = "<html><head><title>WLAN Empfangsanzeige</title></head><body>";
   html += "<h1>Thermische Solaranlage - Steuerung</h1>";
-  html += "<p>Temp1 (°C): <span id='temp1'>Lade...</span> °C</p>";
-  html += "<p>Temp2 (°C): <span id='temp2'>Lade...</span> °C</p>";
+  html += "<p>Temp1: <span id='temp1'>Lade...</span> &#176;C</p>";
+  html += "<p>Temp2: <span id='temp2'>Lade...</span> &#176;C</p>";
   html += "<p>Pumpe (Zustand): <span id='pumpMode'>Lade...</span></p>";
   html += "<script>";
   html += "const eventSource = new EventSource('/events');";
   html += "eventSource.onmessage = function(event) {";
-  html += "document.getElementById('rssi').textContent = event.data;";
+  html += "const data = JSON.parse(event.data);";
+  html += "document.getElementById('temp1').textContent = data.temp1;";
+  html += "document.getElementById('temp2').textContent = data.temp2;";
+  html += "document.getElementById('pumpMode').textContent = data.pumpMode;";
   html += "};";
   html += "</script>";
   html += "</body></html>";
@@ -70,5 +73,3 @@ void WebSetup::handleClient(String temp1, String temp2, String pumpMode) {
     lastSSETime = currentTime;
   }
 }
-
-

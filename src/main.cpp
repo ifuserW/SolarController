@@ -39,7 +39,7 @@ void setup() {
     Serial.print(" V Temp: ");
     Serial.println(temp_c, 1);
     delay(500);
-    webSetup.handleClient();
+    webSetup.handleClient(String(voltage, 2), String(voltage, 2), "TODO");
   }
 }
 
