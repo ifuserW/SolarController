@@ -5,6 +5,12 @@
 #include <LiquidCrystal_I2C.h>
 #include <model/WebSetup.h>
 
+// -------------- Websetup --------------
+const char* ssid = "FRITZ!Box 7490_A";
+const char* password = "32287405134272443760";
+const int webport = 80;
+// -------------- End Websetup --------------
+
 const int MEASURE_PIN = A0;
 // LCDview(AdresseI2C, Spalten, Zeilen)
 int lcdAdresseI2C = 0x27;
@@ -26,7 +32,7 @@ void setup() {
   Serial.begin(9600);
   // init LCD
   LCDview lcd(lcdAdresseI2C, lcdSpalten, lcdZeilen);
-  WebSetup webSetup;
+  WebSetup webSetup(ssid, password, webport);
   while(true){
     readValue = analogRead(MEASURE_PIN);
     voltage = readValue * (3.3 / 4095.0);

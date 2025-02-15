@@ -1,6 +1,6 @@
 #include "WebSetup.h"
 
-WebSetup::WebSetup() : webport(80) { // Initialize webport with a default value, e.g., 80
+WebSetup::WebSetup(const char* ssid, const char* password, const int webport) : ssid(ssid), password(password), webport(webport) { // Initialize webport with a default value, e.g., 80
   this->server = new WebServer(this->webport);
   // Serielle Kommunikation starten
   WiFi.begin(this->ssid, this->password);

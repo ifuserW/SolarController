@@ -24,7 +24,7 @@ private:
     String temp2;
     String pumpMode;
 public:
-    WebSetup();
+    WebSetup(const char* ssid, const char* password, const int webport);
     void handleRoot();
     void handleSSE();
     void handleClient(String temp1, String temp2, String pumpMode);
