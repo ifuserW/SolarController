@@ -41,3 +41,14 @@ void LCDview::print(const String& text) {
     this->lcd.clear();
     this->lcd.print(text.c_str());
 }
+
+void LCDview::print(const String& text, int x, int y) {
+    this->lcd.setCursor(x, y);
+    this->lcd.print(text.c_str());
+}
+
+void LCDview::printIP(const String& ip) {
+    this->lcd.setCursor(0, 3);
+    this->lcd.print("IP: ");
+    this->lcd.print(ip);
+}

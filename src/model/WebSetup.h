@@ -16,18 +16,21 @@
 
 class WebSetup {
 private:
-    const char* ssid = "FRITZ!Box 7490_A";
-    const char* password = "32287405134272443760";
+    const char* ssid;
+    const char* password;
     const int webport;
     WebServer* server;
     String temp1;
     String temp2;
     String pumpMode;
+    String ip;
+    
 public:
     WebSetup(const char* ssid, const char* password, const int webport);
     void handleRoot();
     void handleSSE();
     void handleClient(String temp1, String temp2, String pumpMode);
+    String getIPadress();
 };
 
 #endif // WEBSETUP_H

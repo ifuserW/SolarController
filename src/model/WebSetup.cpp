@@ -11,9 +11,11 @@ WebSetup::WebSetup(const char* ssid, const char* password, const int webport) : 
     Serial.println("Verbinde mit WLAN...");
   }
 
+  ip = WiFi.localIP().toString();
+
   Serial.println("Verbunden mit WLAN!");
   Serial.print("IP-Adresse: ");
-  Serial.println(WiFi.localIP());
+  Serial.println(ip);
 
   // Routen definieren
   this->server->on("/", std::bind(&WebSetup::handleRoot, this));         // Wenn "/" aufgerufen wird, handleRoot() ausführen
@@ -72,4 +74,8 @@ void WebSetup::handleClient(String temp1, String temp2, String pumpMode) {
     this->server->handleClient();
     lastSSETime = currentTime;
   }
+}
+
+String WebSetup::getIPadress() {
+  return ip;
 }

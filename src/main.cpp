@@ -6,8 +6,8 @@
 #include <model/WebSetup.h>
 
 // -------------- Websetup --------------
-const char* ssid = "FRITZ!Box 7490_A";
-const char* password = "32287405134272443760";
+const char* ssid = "FRITZ!Box 6850 BN";
+const char* password = "37291315686167945817";
 const int webport = 80;
 // -------------- End Websetup --------------
 
@@ -33,7 +33,8 @@ void setup() {
   // init LCD
   LCDview lcd(lcdAdresseI2C, lcdSpalten, lcdZeilen);
   WebSetup webSetup(ssid, password, webport);
-  while(true){
+    lcd.printIP(webSetup.getIPadress());
+    while(true){
     readValue = analogRead(MEASURE_PIN);
     voltage = readValue * (3.3 / 4095.0);
     // klären wofür *100 stehen

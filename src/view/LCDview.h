@@ -27,6 +27,8 @@ public:
     void setPumpMode(const String& mode) override;
     void clear();
     void print(const String& text);
+    void print(const String& text, int x, int y);
+    void printIP(const String& ip);
 };
 
 #endif // LCDVIEW_H
