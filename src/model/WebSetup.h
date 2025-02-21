@@ -27,6 +27,7 @@ private:
     
 public:
     WebSetup(const char* ssid, const char* password, const int webport);
+    void connect();
     void handleRoot();
     void handleSSE();
     void handleClient(String temp1, String temp2, String pumpMode);

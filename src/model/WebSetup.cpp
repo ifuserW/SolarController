@@ -3,19 +3,9 @@
 WebSetup::WebSetup(const char* ssid, const char* password, const int webport) : ssid(ssid), password(password), webport(webport) { // Initialize webport with a default value, e.g., 80
   this->server = new WebServer(this->webport);
   // Serielle Kommunikation starten
-  WiFi.begin(this->ssid, this->password);
+  
 
-  // Warte, bis die Verbindung hergestellt ist
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(1000);
-    Serial.println("Verbinde mit WLAN...");
-  }
-
-  ip = WiFi.localIP().toString();
-
-  Serial.println("Verbunden mit WLAN!");
-  Serial.print("IP-Adresse: ");
-  Serial.println(ip);
+  
 
   // Routen definieren
   this->server->on("/", std::bind(&WebSetup::handleRoot, this));         // Wenn "/" aufgerufen wird, handleRoot() ausführen
@@ -37,6 +27,20 @@ void WebSetup::handleSSE() {
 
   // Sende die Daten als SSE-Nachricht
   server->sendContent("data: " + jsonData + "\n\n");
+}
+
+void WebSetup::connect() {
+  WiFi.begin(this->ssid, this->password);
+
+  // TODO: Timeout einstellen! Warte, bis die Verbindung hergestellt ist
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(1000);
+    Serial.println("Verbinde mit WLAN...");
+  }
+  this->ip = WiFi.localIP().toString();
+  Serial.println("Verbunden mit WLAN!");
+  Serial.print("IP-Adresse: ");
+  Serial.println(ip);
 }
 
 // Funktion, die die Hauptseite bereitstellt
