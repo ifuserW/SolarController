@@ -5,8 +5,8 @@
 #include <model/WebSetup.h>
 
 // -------------- Websetup --------------
-const char* ssid = "FRITZ!Box 6850 BN";
-const char* password = "37291315686167945817";
+const char* ssid = "FRITZ!Box 7490_A";
+const char* password = "32287405134272443760";
 const int webport = 80;
 // -------------- End Websetup --------------
 // -------------- PumpControl --------------

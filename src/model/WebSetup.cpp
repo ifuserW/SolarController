@@ -3,9 +3,6 @@
 WebSetup::WebSetup(const char* ssid, const char* password, const int webport) : ssid(ssid), password(password), webport(webport) { // Initialize webport with a default value, e.g., 80
   this->server = new WebServer(this->webport);
   // Serielle Kommunikation starten
-  
-
-  
 
   // Routen definieren
   this->server->on("/", std::bind(&WebSetup::handleRoot, this));         // Wenn "/" aufgerufen wird, handleRoot() ausführen
@@ -21,10 +18,8 @@ void WebSetup::handleSSE() {
   // Setze den Header für SSE
   server->setContentLength(CONTENT_LENGTH_UNKNOWN);
   server->send(200, "text/event-stream");
-
   // Schreibe Daten in json-Format
   String jsonData = "{\"temp1\": " + String(temp1) + ", \"temp2\": \"" + String(temp2) + "\", \"pumpMode\": \"" + pumpMode + "\"}";
-
   // Sende die Daten als SSE-Nachricht
   server->sendContent("data: " + jsonData + "\n\n");
 }
