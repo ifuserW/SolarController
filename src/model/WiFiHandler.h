@@ -8,27 +8,21 @@
     * TODO: Schau ob es eine bessere möglichkeit gibt mit Vererbung (view nur implementieren, erben von LiquidCrystal_I2C, wie java)
 */
 
-#ifndef WEBSETUP_H
-#define WEBSETUP_H
+#ifndef WIFIHANDLER_H
+#define WIFIHANDLER_H
 
 #include <WiFi.h>
-#include <WebServer.h>
 
-class WebSetup {
+class WiFiHandler {
 private:
-    const int webport;
-    WebServer* server;
-    String temp1;
-    String temp2;
-    String pumpMode;
+    const char* ssid;
+    const char* password;
     String ip;
     
 public:
-    WebSetup(const int webport);
-    void start();
-    void handleRoot();
-    void handleSSE();
-    void handleClient(String temp1, String temp2, String pumpMode);
+    WiFiHandler(const char* ssid, const char* password);
+    void connect();
+    String getIPadress();
 };
 
-#endif // WEBSETUP_H
+#endif // WIFIHANDLER_H

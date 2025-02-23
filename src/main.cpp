@@ -2,6 +2,7 @@
 #include <WString.h>
 #include <view/LCDview.h>
 #include <LiquidCrystal_I2C.h>
+#include <model/WiFiHandler.h>
 #include <model/WebSetup.h>
 
 // -------------- Websetup --------------
@@ -18,7 +19,7 @@ int maxTempCollector = 80;
 
 const int MEASURE_PIN0 = A0;
 const int MEASURE_PIN1 = A1;
-// LCDview(AdresseI2C, Spalten, Zeilen)
+
 const int lcdAdresseI2C = 0x27;
 const int lcdSpalten = 20;
 const int lcdZeilen = 4;
@@ -34,7 +35,6 @@ int readValuePin1 = 0;
 float tempCollector;
 float tempStorage;
 
-
 void setup() {
   // sets the resolution of the analogRead
   analogReadResolution(12);
@@ -42,10 +42,13 @@ void setup() {
   Serial.begin(9600);
   // init LCD
   LCDview lcd(lcdAdresseI2C, lcdSpalten, lcdZeilen);
-  WebSetup webSetup(ssid, password, webport);
+  WiFiHandler wifi(ssid, password);
+  WebSetup webSetup(webport);
+
   while(true) {
-    webSetup.connect();
-    lcd.printIP(webSetup.getIPadress());
+    wifi.connect();
+    webSetup.start();
+    lcd.printIP(wifi.getIPadress());
     // TODO: Abfrage, ob verbindung noch da in regelmäßigen Abständen
     while(true){
       readValuePin0 = analogRead(MEASURE_PIN0);
@@ -57,17 +60,19 @@ void setup() {
       tempCollector = ((voltagePin0 * 212.904) + 820);
       tempStorage = ((voltagePin1 * 212.904) + 820);
 
-
       lcd.setTemp1(String(voltagePin0, 2));
       lcd.setTemp2(String(voltagePin1, 2));
       lcd.setPumpMode("TODO");
       Serial.print(voltagePin0);
-      Serial.print(voltagePin1);
-      Serial.print(" V Temp: ");
+      Serial.print(" V1 Temp: ");
       Serial.println(tempCollector, 1);
+      Serial.print(voltagePin1);
+      Serial.print(" V2 Temp: ");
       Serial.println(tempStorage, 1);
+
+      
       webSetup.handleClient(String(voltagePin0, 2), String(voltagePin0, 2), "TODO");
-      delay(500);
+      delay(2000);
     }
   }
 }
