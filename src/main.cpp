@@ -7,8 +7,11 @@
 #include "model/PumpControl.h"
 
 // -------------- Websetup --------------
-const char* ssid = "FRITZ!Box 7490_A";
-const char* password = "32287405134272443760";
+// const char* ssid = "FRITZ!Box 7490_A";
+// const char* password = "32287405134272443760";
+const char* ssid = "Pixel_3583";
+const char* password = "6138wlanDing";
+
 const int webport = 80;
 // -------------- End Websetup --------------
 // -------------- PumpControl --------------
@@ -20,7 +23,7 @@ const int maxTempCollector = 80;  // in °C
 
 const int MEASURE_PIN0 = A0;
 const int MEASURE_PIN1 = A1;
-const int PUMP_PIN = A3;    // TODO: Klären welchen Pin
+const int PUMP_PIN = D2;    // TODO: Klären welchen Pin
 
 const int lcdAdresseI2C = 0x27;
 const int lcdSpalten = 20;
@@ -49,11 +52,17 @@ void setup() {
   String pumpText = "off";
 
   while(true) {
-    wifi.connect();
-    webSetup.start();
-    lcd.printIP(wifi.getIPadress());
+    try {
+      wifi.connect();
+      webSetup.start();
+      lcd.printIP(wifi.getIPadress());
+    } catch (WiFiHandler::ConnectionTimeoutException e) {
+      Serial.println(e.what());
+      lcd.printIP("disconnected");
+    }
+    
     // TODO: Abfrage, ob verbindung noch da in regelmäßigen Abständen
-    while(true){
+    do {
       control.controlPump();
       if(control.isPumpActive()){
         pumpText = "on";
@@ -70,7 +79,7 @@ void setup() {
       
       
       delay(2000);
-    }
+    }while(wifi.isConnected());
   }
 }
 
