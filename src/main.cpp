@@ -7,23 +7,23 @@
 #include "model/PumpControl.h"
 
 // -------------- Websetup --------------
-// const char* ssid = "FRITZ!Box 7490_A";
-// const char* password = "32287405134272443760";
-const char* ssid = "Pixel_3583";
-const char* password = "6138wlanDing";
+const char* ssid = "FRITZ!Box 7490_A";
+const char* password = "32287405134272443760";
+// const char* ssid = "Pixel_3583";
+// const char* password = "6138wlanDing";
 
 const int webport = 80;
 // -------------- End Websetup --------------
 // -------------- PumpControl --------------
-const int tempdivForActivePump = 8;
-const int tempdivForDeactivePump = 4;
-const int minTimeActivePump = 3;    // in minutes
-const int maxTempCollector = 80;  // in °C
+const float tempdivForActivePump = 8;
+const float tempdivForDeactivePump = 4;
+const float minTimeActivePump = 2;    // in minutes 
+const float maxTempStorage = 80;  // in °C
 // -------------- End PumpControl --------------
 
 const int MEASURE_PIN0 = A0;
 const int MEASURE_PIN1 = A1;
-const int PUMP_PIN = D2;    // TODO: Klären welchen Pin
+const int PUMP_PIN = D2;    
 
 const int lcdAdresseI2C = 0x27;
 const int lcdSpalten = 20;
@@ -46,7 +46,7 @@ void setup() {
   WebSetup webSetup(webport);
   PumpControl control(tempdivForActivePump, 
     tempdivForDeactivePump, minTimeActivePump, 
-    maxTempCollector, MEASURE_PIN0, MEASURE_PIN1, 
+    maxTempStorage, MEASURE_PIN0, MEASURE_PIN1, 
     PUMP_PIN
   );
   String pumpText = "off";
@@ -61,7 +61,7 @@ void setup() {
       lcd.printIP("disconnected");
     }
     
-    // TODO: Abfrage, ob verbindung noch da in regelmäßigen Abständen
+    // TODO: Abfrage durch event? (timing)
     do {
       control.controlPump();
       if(control.isPumpActive()){

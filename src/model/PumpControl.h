@@ -8,7 +8,7 @@ public:
     PumpControl(const int tempdivForActivePump, 
         const int tempdivForDeactivePump, 
         const int minTimeActivePump, 
-        const int maxTempCollector,
+        const int maxTempStorage,
         const int pin0, 
         const int pin1, 
         const int pinPump);
@@ -22,13 +22,14 @@ private:
     const int tempdivForActivePump;
     const int tempdivForDeactivePump;
     const int minTimeActivePump;    // in minutes
-    const int maxTempCollector;  // in °C
+    const int maxTempStorage;  // in °C
     // -------------- End PumpControl --------------
 
     const int pinPump;
     PT1000 sensorCollector;
     PT1000 sensorStorage;
     bool pumpState;
+    unsigned long lastTimePumpOn;
 
     void turnPumpOn();
     void turnPumpOff();
