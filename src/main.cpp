@@ -28,6 +28,8 @@ const int PUMP_PIN = D2;
 const int lcdAdresseI2C = 0x27;
 const int lcdSpalten = 20;
 const int lcdZeilen = 4;
+
+// TODO: wird noch benötigt?
 // unbekannt ob nächste Zeile benötigt wird
 // const int amplification = 100;
 const float vt_factor = 1.88;
@@ -78,7 +80,7 @@ void setup() {
       webSetup.handleClient(String(control.getTemp1(), 2), String(control.getTemp2(), 2), pumpText);
       
       
-      delay(2000);
+      delay(500);
     }while(wifi.isConnected());
   }
 }

@@ -6,8 +6,8 @@ PT1000::PT1000(const int pin) : pin(pin) {
 
 void PT1000::readTemp() {
     this->voltage = analogRead(pin) * (3.3 / 4095.0);
-    // this->temp = (this->voltage * 212.904) + 820;
-    this->temp = (this->voltage - 0.5) * 100.0;
+    // this->temp = (this->voltage * 212.904) + 820;    This displays the resistance
+    this->temp = this->voltage * 95.99815 - 46.15;
 }
 
 float PT1000::getTemp() {

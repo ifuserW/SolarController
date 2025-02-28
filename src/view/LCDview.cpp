@@ -16,14 +16,14 @@ void LCDview::setTemp1(const String& temp) {
     this->lcd.setCursor(0, 0); // Set cursor to the first row
     this->lcd.print("                "); // Clear the line by printing spaces
     this->lcd.setCursor(0, 0); // Reset cursor to the beginning of the line
-    this->lcd.print("Temp1: " + temp); // Print the new text
+    this->lcd.print("Collector: " + temp); // Print the new text
 }
 
 void LCDview::setTemp2(const String& temp) {
     this->lcd.setCursor(0, 1); // Set cursor to the first row
     this->lcd.print("                "); // Clear the line by printing spaces
     this->lcd.setCursor(0, 1); // Reset cursor to the beginning of the line
-    this->lcd.print("Temp2: " + temp); // Print the new text
+    this->lcd.print("Storage: " + temp); // Print the new text
 }
 void LCDview::setPumpMode(const String& mode) {
     this->lcd.setCursor(0, 2); // Set cursor to the first row

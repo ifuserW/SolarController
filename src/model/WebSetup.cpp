@@ -28,8 +28,8 @@ void WebSetup::handleSSE() {
 void WebSetup::handleRoot() {
   String html = "<html><head><title>WLAN Empfangsanzeige</title></head><body>";
   html += "<h1>Thermische Solaranlage - Steuerung</h1>";
-  html += "<p>Temp1: <span id='temp1'>Lade...</span> &#176;C</p>";
-  html += "<p>Temp2: <span id='temp2'>Lade...</span> &#176;C</p>";
+  html += "<p>Collector: <span id='temp1'>Lade...</span> &#176;C</p>";
+  html += "<p>Storage: <span id='temp2'>Lade...</span> &#176;C</p>";
   html += "<p>Pumpe (Zustand): <span id='pumpMode'>Lade...</span></p>";
   html += "<script>";
   html += "const eventSource = new EventSource('/events');";
