@@ -26,7 +26,16 @@ void WebSetup::handleSSE() {
 
 // Funktion, die die Hauptseite bereitstellt
 void WebSetup::handleRoot() {
-  String html = "<html><head><title>WLAN Empfangsanzeige</title></head><body>";
+  String html = "<html><head>";
+  html += "<meta name='viewport' content='width=device-width, initial-scale=1.0'>";
+  html += "<title>WLAN Empfangsanzeige</title>";
+  html += "<style>";
+  html += "body { font-family: Arial, sans-serif; text-align: center; background-color: #f4f4f4; color: #333; margin: 0; padding: 20px; }";
+  html += "h1 { color: #007BFF; }";
+  html += "p { font-size: 1.2em; background: white; padding: 10px; border-radius: 8px; display: inline-block; width: 80%; max-width: 400px; margin: 10px auto; }";
+  html += "span { font-weight: bold; color: #d35400; }";
+  html += "</style>";
+  html += "</head><body>";
   html += "<h1>Thermische Solaranlage - Steuerung</h1>";
   html += "<p>Collector: <span id='temp1'>Lade...</span> &#176;C</p>";
   html += "<p>Storage: <span id='temp2'>Lade...</span> &#176;C</p>";
@@ -41,6 +50,7 @@ void WebSetup::handleRoot() {
   html += "};";
   html += "</script>";
   html += "</body></html>";
+  
 
   server->send(200, "text/html", html);
 }
