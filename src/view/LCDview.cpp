@@ -21,12 +21,12 @@ LCDview::LCDview(uint8_t lcd_addr, uint8_t lcd_cols, uint8_t lcd_rows) : lcd(lcd
 
 void LCDview::setTemp1(const String& temp) {
     this->lcd.setCursor(11, 0); // Reset cursor to the beginning of the line
-    this->lcd.print(temp + "   "); // Print the new text
+    this->lcd.print(temp + " °C "); // Print the new text
 }
 
 void LCDview::setTemp2(const String& temp) {
     this->lcd.setCursor(9, 1); // Set cursor to the first row
-    this->lcd.print(temp + "   "); // Print the new text
+    this->lcd.print(temp + " °C "); // Print the new text
 }
 void LCDview::setPumpMode(const String& mode) {
     this->lcd.setCursor(6, 2); // Set cursor to the first row

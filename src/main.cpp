@@ -7,10 +7,8 @@
 #include "model/PumpControl.h"
 
 // -------------- Websetup --------------
-const char* ssid = "FRITZ!Box 7490_A";
-const char* password = "32287405134272443760";
-// const char* ssid = "Pixel_3583";
-// const char* password = "6138wlanDing";
+const char* ssid = "Pixel_3583";
+const char* password = "wlandDingTest";
 
 const int webport = 80;
 // -------------- End Websetup --------------
