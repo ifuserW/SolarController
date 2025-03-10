@@ -49,15 +49,6 @@ void PumpControl::controlPump() {
     }
 }
 
-void PumpControl::updatePumpState(bool state) {
-    if(state){
-        turnPumpOn();
-    } else {
-        turnPumpOff();
-    }
-    
-}
-
 void PumpControl::turnPumpOn() {
     digitalWrite(pinPump, HIGH);
     pumpState = true;
