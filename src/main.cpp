@@ -72,7 +72,6 @@ void setup() {
         pumpText = "off";
       }
 
-      // TODO: Wie LCD nur bei änderungen updaten
       lcd.setTemp1(String(control.getTemp1(), 2));
       lcd.setTemp2(String(control.getTemp2(), 2));
       lcd.setPumpMode(pumpText);
