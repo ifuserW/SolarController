@@ -21,7 +21,6 @@ private:
     String temp1;
     String temp2;
     String pumpMode;
-    String ip;
     
 public:
     WebSetup(const int webport);

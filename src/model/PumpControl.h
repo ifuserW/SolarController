@@ -33,7 +33,6 @@ private:
 
     void turnPumpOn();
     void turnPumpOff();
-    void updatePumpState(bool state);
 };
 
 #endif // PUMPCONTROL_H
