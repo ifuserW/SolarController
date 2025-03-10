@@ -70,11 +70,11 @@ void setup() {
         pumpText = "off";
       }
 
-      lcd.setTemp1(String(control.getTemp1(), 2));
-      lcd.setTemp2(String(control.getTemp2(), 2));
+      lcd.setTemp1(String(control.getTemp1(), 1));
+      lcd.setTemp2(String(control.getTemp2(), 1));
       lcd.setPumpMode(pumpText);
       
-      webSetup.handleClient(String(control.getTemp1(), 2), String(control.getTemp2(), 2), pumpText);
+      webSetup.handleClient(String(control.getTemp1(), 1), String(control.getTemp2(), 1), pumpText);
       
       
       delay(500);
