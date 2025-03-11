@@ -8,7 +8,7 @@
 
 // -------------- Websetup --------------
 const char* ssid = "Pixel_3583";
-const char* password = "wlandDingTest";
+const char* password = "wlanding";
 
 const int webport = 80;
 // -------------- End Websetup --------------

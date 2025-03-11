@@ -1,5 +1,6 @@
 #include "LCDview.h"
 #include <LiquidCrystal_I2C.h>
+#include <Arduino.h>
 
 // Initialize the library with the numbers of the interface pins
 
@@ -17,16 +18,33 @@ LCDview::LCDview(uint8_t lcd_addr, uint8_t lcd_cols, uint8_t lcd_rows) : lcd(lcd
     this->lcd.print("Pump: "); // Print the new text
     this->lcd.setCursor(0, 3);
     this->lcd.print("IP: ");
+
+    //für das grad zeichen
+    byte degreeSymbol[8] = {
+        0b00111,
+        0b00101,
+        0b00111,
+        0b00000,
+        0b00000,
+        0b00000,
+        0b00000,
+        0b00000
+    };
+    this->lcd.createChar(0, degreeSymbol);
 }
 
 void LCDview::setTemp1(const String& temp) {
     this->lcd.setCursor(11, 0); // Reset cursor to the beginning of the line
-    this->lcd.print(temp + " °C "); // Print the new text
+    this->lcd.print(temp); // Print the new text
+    this->lcd.write(byte(0));
+    this->lcd.print("C  ");
 }
 
 void LCDview::setTemp2(const String& temp) {
     this->lcd.setCursor(9, 1); // Set cursor to the first row
-    this->lcd.print(temp + " °C "); // Print the new text
+    this->lcd.print(temp); // Print the new text
+    this->lcd.write(byte(0));
+    this->lcd.print("C  ");
 }
 void LCDview::setPumpMode(const String& mode) {
     this->lcd.setCursor(6, 2); // Set cursor to the first row
